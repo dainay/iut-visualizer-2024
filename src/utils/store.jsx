@@ -10,6 +10,13 @@ const useStore = create((set) => ({
     set(() => ({
       tracks: _tracks,
     })),
+
+    currentTrackIndex: null,
+    setCurrentTrackIndex: (index) => set(() => ({ currentTrackIndex: index })),
+  
+    isPlaying: false,
+    setIsPlaying: (bool) => set(() => ({ isPlaying: bool })),
+
 }));
 
 export default useStore;

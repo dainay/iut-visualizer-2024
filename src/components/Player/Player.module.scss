@@ -1,0 +1,58 @@
+.player {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    background-color: rgba(20, 20, 20, 0.9);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1000;
+    color: white;
+    font-family: sans-serif;
+  }
+  
+  .cover {
+    width: 64px;
+    height: 64px;
+    -o-object-fit: cover;
+       object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .info {
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .info h3 {
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+  
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .controls button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.2s ease;
+  }
+  
+  .controls button:hover {
+    transform: scale(1.2);
+  }
+  

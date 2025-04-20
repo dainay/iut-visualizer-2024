@@ -7,7 +7,7 @@
   padding-left: 10px;
   border-radius: 8px;
 
-  &:hover {
+  &:hover, &.active {
     background-color: rgba(white, 0.1);
   }
 
@@ -23,7 +23,8 @@
     .cover {
       height: 40px;
       width: 40px;
-      object-fit: cover;
+      -o-object-fit: cover;
+         object-fit: cover;
       border-radius: 4px;
     }
 

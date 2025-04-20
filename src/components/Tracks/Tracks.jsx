@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Track from "../Track/Track";
 import useStore from "../../utils/store";
 import { fetchMetadata } from "../../utils/utils";
-import TRACKS from "../../utils/TRACKS";
+import TRACKS from "../../utils/TRACKS"; 
 
 import fetchJsonp from "fetch-jsonp";
 
@@ -31,6 +31,9 @@ const Tracks = () => {
     fetchMetadata(TRACKS, tracks, setTracks);
   }, []);
 
+  const { currentTrackIndex } = useStore();
+
+
   const onKeyDown = (e) => {
     if (e.keyCode === 13 && e.target.value !== "") {
       // l'utilisateur a appuyé sur sa touche entrée
@@ -45,26 +48,27 @@ const Tracks = () => {
     let response = await fetchJsonp(
       `https://api.deezer.com/search?q=${userInput}&output=jsonp`
     );
-
+  
     if (response.ok) {
       response = await response.json();
-
-      // récupérer le tableau de tracks du store existant
-      const _tracks = [...tracks];
-
-      // pour chaque track renvoyée par l'API
-      response.data.forEach((result) => {
-        _tracks.push(result);
-      });
-
-      // màj le store
-      setTracks(_tracks);
-
-      console.log(_tracks);
-    } else {
-      // erreurs
+   
+      const localTracks = tracks.filter((track) => track.origin === "local");
+  
+      const deezerTracks = response.data.map((result, i) => ({
+        id: localTracks.length + i,
+        title: result.title,
+        duration: result.duration,
+        album: {
+          cover_xl: result.album.cover_medium,
+        },
+        preview: result.preview,
+        origin: "deezer",
+      }));
+  
+      setTracks([...localTracks, ...deezerTracks]);
     }
   };
+  
 
   return (
     <>
@@ -95,7 +99,7 @@ const Tracks = () => {
               cover={track.album.cover_xl}
               // artists={track.artists}
               src={track.preview}
-              index={i}
+              index={i}  
             />
           ))}
         </div>

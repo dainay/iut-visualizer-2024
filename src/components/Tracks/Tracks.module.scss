@@ -37,13 +37,15 @@
   color: white;
   border-bottom: solid 2px white;
   position: absolute;
-  bottom: 5%;
+  top: 3%;
   left: 0;
   right: 0;
   margin: auto;
-
-  width: 250px;
+  width: 450px;
   font-size: 20px;
+  background-color: rgb(58 58 58 / 56%);
+  padding: 9px 15px;
+  border-radius: 5px;
 }
 
 .wrapper {
@@ -93,4 +95,24 @@
       }
     }
   }
+}
+ 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.4);
 }

@@ -6,7 +6,11 @@ export default class Line {
     this.nb = 256;
     this.gap = 1.5;
     this.colors = [
-      0xff0000, 0xff7f00, 0xffff00, 0x00ff00, 0x0000ff, 0x4b0082, 0x8f00ff,
+      0x6d5c67,
+      0x9f8f90,
+      0xae6e73,
+      0xf4a58a,
+      0xfce2b9,
     ];
 
     this.materials = [];

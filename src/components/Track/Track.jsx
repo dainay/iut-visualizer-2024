@@ -1,11 +1,17 @@
 import audioController from "../../utils/AudioController";
 import scene from "../../webgl/Scene";
-import s from "./Track.module.scss";
+import s from "./Track.module.scss"; 
+import useStore from "../../utils/store";
 
 const Track = ({ title, cover, src, duration, artists, index }) => {
+
+  const { currentTrackIndex, setCurrentTrackIndex } = useStore();  
+
   const getSeconds = () => {
     const minutes = Math.floor(duration / 60);
     let seconds = Math.round(duration - minutes * 60);
+
+    
 
     if (seconds < 10) {
       seconds = "0" + seconds;
@@ -17,10 +23,14 @@ const Track = ({ title, cover, src, duration, artists, index }) => {
   const onClick = () => {
     audioController.play(src);
     scene.cover.setCover(cover);
+    setCurrentTrackIndex(index);
+    scene.cover.setCover(cover);
   };
 
   return (
-    <div className={s.track} onClick={onClick}>
+    <div 
+    className={`${s.track} ${index === currentTrackIndex ? s.active :""}`} 
+    onClick={onClick}>
       <span className={s.order}>{index + 1}</span>
       <div className={s.title}>
         <img src={cover} alt="" className={s.cover} />

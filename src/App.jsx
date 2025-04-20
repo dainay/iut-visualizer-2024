@@ -3,6 +3,7 @@ import Landing from "./components/Landing/Landing";
 import Dropzone from "./components/Dropzone/Dropzone";
 import Tracks from "./components/Tracks/Tracks";
 import Picker from "./components/Picker/Picker";
+import Player from "./components/Player/Player";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Picker />
       <Tracks />
       <Canvas />
+      <Player />
     </>
   );
 }

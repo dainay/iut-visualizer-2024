@@ -17,10 +17,15 @@ import LogoIut from "./objects/LogoIut";
 import Cover from "./objects/Cover";
 import audioController from "../utils/AudioController";
 import Cube from "./objects/Cube";
+import ParticlesExplosion from "./objects/ParticlesExplosion";
+import ParticlesInteractive from "./objects/ParticlesInteractive";
+
 
 class Scene {
-  constructor() {}
-
+  constructor() {
+    this.mouse = new THREE.Vector2();
+  }
+  
   setup(canvas) {
     this.canvas = canvas;
     this.width = window.innerWidth;
@@ -121,11 +126,18 @@ class Scene {
     this.cover = new Cover();
     // this.cube = new Cube();
     // ....
+    this.particles = new ParticlesExplosion();
+    this.particles.setCamera(this.camera);
+    
 
     // ajout de l'objet à la scène par défaut
-    this.camera.position.z = 20;
-    this.scene.add(this.board.group);
-    this.currentObject = this.board;
+    this.camera.position.z = 10;
+   
+    this.glowfield = new ParticlesInteractive();
+    this.glowfield.setCamera(this.camera);
+    this.scene.add(this.glowfield.group);
+    this.currentObject = this.glowfield;
+
   }
 
   onResize = () => {
@@ -142,6 +154,8 @@ class Scene {
   addEvents() {
     gsap.ticker.add(this.tick);
     window.addEventListener("resize", this.onResize);
+    window.addEventListener("mousemove", this.onMouseMove.bind(this));
+
   }
 
   setupScene() {
@@ -158,6 +172,20 @@ class Scene {
 
     // this.camera.position.z = 20;
   }
+
+  onMouseMove(evt) {
+    const x = (evt.clientX / window.innerWidth) * 2 - 1;
+    const y = -(evt.clientY / window.innerHeight) * 2 + 1;
+  
+    this.mouse.x = x;
+    this.mouse.y = y;
+  
+    // если glowfield активен и у него есть setMouse
+    if (this.glowfield?.setMouse) {
+      this.glowfield.setMouse(this.mouse);
+    }
+  }
+  
 
   setupRenderer() {
     this.renderer = new THREE.WebGLRenderer({
@@ -201,8 +229,16 @@ class Scene {
         this.camera.position.z = 20;
         this.currentObject = this.cover;
         break;
-      default:
+      case 4:
+        this.camera.position.z = 10;
+        this.currentObject = this.particles;
         break;
+      case 5:
+          this.camera.position.z = 10;
+          this.currentObject = this.glowfield;
+          break;
+        default:
+          break;
     }
 
     // on add le nouveau group

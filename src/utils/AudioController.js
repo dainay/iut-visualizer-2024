@@ -28,6 +28,12 @@ class AudioController {
 
     gsap.ticker.add(this.tick);
 
+    this.audio.addEventListener("ended", () => {
+      if (this.onEndedCallback) {
+        this.onEndedCallback();
+      }
+    });
+
     this.audio.addEventListener("loadeddata", async () => {
       await this.detectBPM();
       // console.log(`The BPM is: ${bpm}`);
@@ -55,6 +61,23 @@ class AudioController {
     this.audio.src = src;
     this.audio.play();
   };
+
+  pause = () => {
+    this.audio.pause();
+  };
+  
+  resume = () => {
+    this.audio.play();
+  };
+  
+  isPlaying = () => {
+    return !this.audio.paused;
+  };
+  
+  setOnEnded(callback) {
+    this.onEndedCallback = callback;
+  }
+  
 
   tick = () => {
     this.analyserNode.getByteFrequencyData(this.fdata);
