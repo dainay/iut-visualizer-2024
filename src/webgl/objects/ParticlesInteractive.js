@@ -108,7 +108,7 @@ export default class ParticlesInteractive {
       }
  
       const breathing = Math.sin(time * 0.002) * 0.1;
-this.material.size = 0.2 + bass * 0.6 + breathing;
+this.material.size = 0.2 + bass * 0.3 + breathing;
 
       this.positions[i * 3 + 0] = x;
       this.positions[i * 3 + 1] = y;

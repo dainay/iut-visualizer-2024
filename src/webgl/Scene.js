@@ -236,6 +236,10 @@ class Scene {
       case 5:
           this.camera.position.z = 10;
           this.currentObject = this.glowfield;
+
+          this.bloomParams.threshold = 0.0;
+          this.bloomPass.threshold = 0.0;
+    
           break;
         default:
           break;
